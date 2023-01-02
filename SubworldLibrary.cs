@@ -1457,7 +1457,7 @@ namespace SubworldLibrary
 						main = Main.ActiveWorldFileData;
 						current = subworlds[i];
 
-						NamedPipeServerStream pipe = new NamedPipeServerStream(current.FullName + "/IN", PipeDirection.In, -1);
+						NamedPipeServerStream pipe = new NamedPipeServerStream(current.FullName + "-IN", PipeDirection.In, -1);
 						pipe.WaitForConnection();
 
 						copiedData = TagIO.FromStream(pipe);
@@ -1471,7 +1471,7 @@ namespace SubworldLibrary
 							Netplay.Clients[j].ReadBuffer = null; // not used by subservers, saves 262kb total
 						}
 
-						SubserverSocket.pipe = new NamedPipeClientStream(".", current.FullName + "/OUT", PipeDirection.Out);
+						SubserverSocket.pipe = new NamedPipeClientStream(".", current.FullName + "-OUT", PipeDirection.Out);
 						new Thread(SubserverCallBack)
 						{
 							IsBackground = true
